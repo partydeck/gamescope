@@ -584,7 +584,9 @@ namespace gamescope
 
 		m_uUserEventIdBase = SDL_RegisterEvents( GAMESCOPE_SDL_EVENT_COUNT );
 
-		SDL_SetHint( SDL_HINT_APP_NAME, "Gamescope" );
+		const char *pAppId = g_pAppId ? g_pAppId : "gamescope";
+		SDL_SetHint( SDL_HINT_APP_NAME, pAppId );
+		SDL_SetHint( "SDL_APP_ID", pAppId );
 		SDL_SetHint( SDL_HINT_VIDEO_ALLOW_SCREENSAVER, "1" );
 
 		if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_EVENTS ) != 0 )

@@ -8,6 +8,7 @@
 
 extern const char *gamescope_optstring;
 extern const struct option *gamescope_options;
+extern const char *g_pAppId;
 
 extern std::atomic< bool > g_bRun;
 

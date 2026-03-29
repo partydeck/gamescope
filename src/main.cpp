@@ -52,6 +52,7 @@ extern gamescope::ConVar<bool> cv_shutdown_on_primary_child_death;
 const char *gamescope_optstring = nullptr;
 const char *g_pOriginalDisplay = nullptr;
 const char *g_pOriginalWaylandDisplay = nullptr;
+const char *g_pAppId = nullptr;
 
 bool g_bAllowDeferredBackend = false;
 
@@ -122,6 +123,7 @@ const struct option *gamescope_options = (struct option[]){
 
 	// wlserver options
 	{ "xwayland-count", required_argument, nullptr, 0 },
+	{ "app-id", required_argument, nullptr, 0 },
 
 	// steamcompmgr options
 	{ "cursor", required_argument, nullptr, 0 },
@@ -183,6 +185,7 @@ const char usage[] =
 	"                                     nis => NVIDIA Image Scaling v1.0.3\n"
 	"  --sharpness, --fsr-sharpness   upscaler sharpness from 0 (max) to 20 (min)\n"
 	"  --expose-wayland               support wayland clients using xdg-shell\n"
+	"  --app-id                       set app ID (default: gamescope)\n"
 	"  -s, --mouse-sensitivity        multiply mouse movement by given decimal number\n"
 	"  --backend                      select rendering backend\n"
 	"                                     auto => autodetect (default)\n"
@@ -860,6 +863,8 @@ int main(int argc, char **argv)
 					g_bKeyboardDisabled = true;
 				} else if (strcmp(opt_name, "backend-disable-mouse") == 0) {
 					g_bMouseDisabled = true;
+				} else if (strcmp(opt_name, "app-id") == 0) {
+					g_pAppId = optarg;
 				} else if (strcmp(opt_name, "nested-follow-window-scale") == 0) {
 					g_nForceNestedScaleForWindow = parse_float(optarg, opt_name);
 				}

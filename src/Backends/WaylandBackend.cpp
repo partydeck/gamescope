@@ -1408,10 +1408,10 @@ namespace gamescope
 
         if ( !pParent )
         {
-			wl_proxy_set_tag( (wl_proxy *)m_pSurface, &GAMESCOPE_toplevel_tag );
+            wl_proxy_set_tag( (wl_proxy *)m_pSurface, &GAMESCOPE_toplevel_tag );
             m_pFrame = libdecor_decorate( m_pBackend->GetLibDecor(), m_pSurface, &s_LibDecorFrameInterface, this );
             libdecor_frame_set_title( m_pFrame, "Gamescope" );
-            libdecor_frame_set_app_id( m_pFrame, "gamescope" );
+            libdecor_frame_set_app_id( m_pFrame, g_pAppId ? g_pAppId : "gamescope" );
             libdecor_frame_map( m_pFrame );
         }
         else
