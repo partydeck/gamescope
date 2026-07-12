@@ -2435,6 +2435,12 @@ namespace gamescope
         if ( !m_pPointer )
             return;
 
+        // When the backend mouse is disabled, its motion events are discarded,
+        // so locking the host pointer to this surface would only lock the host
+        // out of their own cursor. Never take the pointer constraint.
+        if ( g_bMouseDisabled )
+            bRelative = false;
+
         if ( !!bRelative != !!m_pLockedPointer || ( pSurface != m_pLockedSurface && bRelative ) )
         {
             if ( m_pLockedPointer )
