@@ -256,7 +256,10 @@ namespace gamescope
 		if ( g_bFullscreen == true )
 			uSDLWindowFlags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-		if ( g_bGrabbed == true )
+		// When the backend keyboard is disabled, every key event from the host
+		// seat is discarded anyway, so grabbing the window keyboard would only
+		// trap the host's keyboard (shortcut inhibition) with no way out.
+		if ( g_bGrabbed == true && !g_bKeyboardDisabled )
 			uSDLWindowFlags |= SDL_WINDOW_KEYBOARD_GRABBED;
 
 		m_pWindow = SDL_CreateWindow(
@@ -643,7 +646,7 @@ namespace gamescope
 			g_nOutputHeight = height;
 		}
 
-		if ( g_bForceRelativeMouse )
+		if ( g_bForceRelativeMouse && !g_bMouseDisabled )
 		{
 			SDL_SetRelativeMouseMode( SDL_TRUE );
 			m_bApplicationGrabbed = true;
@@ -795,7 +798,7 @@ namespace gamescope
 							}
 						}
 
-						SDL_SetWindowKeyboardGrab( m_Connector.GetSDLWindow(), g_bGrabbed ? SDL_TRUE : SDL_FALSE );
+						SDL_SetWindowKeyboardGrab( m_Connector.GetSDLWindow(), ( g_bGrabbed && !g_bKeyboardDisabled ) ? SDL_TRUE : SDL_FALSE );
 
 						SDL_Event event;
 						event.type = GetUserEventIndex( GAMESCOPE_SDL_EVENT_TITLE );
@@ -981,7 +984,10 @@ namespace gamescope
 					}
 					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_GRAB ) )
 					{
-						SDL_SetRelativeMouseMode( m_bApplicationGrabbed ? SDL_TRUE : SDL_FALSE );
+						// Skip relative mouse mode when the backend mouse is disabled:
+						// motion events are discarded, so hiding + confining the host
+						// cursor would lock the host out of their own pointer.
+						SDL_SetRelativeMouseMode( ( m_bApplicationGrabbed && !g_bMouseDisabled ) ? SDL_TRUE : SDL_FALSE );
 					}
 					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_CURSOR ) )
 					{
