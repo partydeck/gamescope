@@ -3034,6 +3034,9 @@ bool ShouldDrawCursor()
 	if ( g_bForceRelativeMouse )
 		return true;
 
+	if (g_libinputSelectedDevices.size() > 0 && g_bMouseDisabled)
+		return true;
+	
 	global_focus_t *pFocus = GetCurrentFocus();
 	if ( !pFocus )
 		return false;

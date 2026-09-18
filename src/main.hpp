@@ -4,8 +4,10 @@
 
 #include <atomic>
 #include <optional>
+#include <string>
 #include <string_view>
 #include <utility>
+#include <vector>
 
 #include "gamescope_shared.h"
 
@@ -19,6 +21,7 @@ extern int g_nNestedHeight;
 extern int g_nNestedRefresh; // mHz
 extern int g_nNestedUnfocusedRefresh; // mHz
 extern int g_nNestedDisplayIndex;
+extern float g_nForceNestedScaleForWindow;
 
 extern uint32_t g_nOutputWidth;
 extern uint32_t g_nOutputHeight;
@@ -33,6 +36,12 @@ extern uint32_t g_uOutputRotation;
 extern bool g_bFullscreen;
 
 extern bool g_bGrabbed;
+
+extern bool g_bKeyboardDisabled;
+extern bool g_bMouseDisabled;
+
+extern std::vector<std::string> g_libinputSelectedDevices;
+extern std::vector<int> g_libinputSelectedDevices_grabbed_fds;
 
 extern float g_mouseSensitivity;
 extern const char *g_sOutputName;
@@ -142,4 +151,3 @@ extern bool g_bNoTouchPointerEmulation;
 
 extern uint32_t g_preferVendorID;
 extern uint32_t g_preferDeviceID;
-
