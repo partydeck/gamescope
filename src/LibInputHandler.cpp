@@ -1,5 +1,7 @@
 #include "LibInputHandler.h"
 
+#include <bitset>
+#include <linux/input.h>
 #include <cstddef>
 #include <libinput.h>
 #include <fcntl.h>

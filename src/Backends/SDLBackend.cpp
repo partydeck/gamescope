@@ -1,11 +1,14 @@
 // For the nested case, reads input from the SDL window and send to wayland
 
 #include <X11/Xlib.h>
+
+#include <bitset>
 #include <thread>
 #include <mutex>
 #include <string>
 #include <optional>
 
+#include <linux/input.h>
 #include <linux/input-event-codes.h>
 #include <signal.h>
 

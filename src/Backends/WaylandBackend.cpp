@@ -12,6 +12,7 @@
 #include "waitable.h"
 #include "Utils/TempFiles.h"
 
+#include <bitset>
 #include <cstring>
 #include <linux/input.h>
 #include <unordered_map>
